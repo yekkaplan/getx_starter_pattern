@@ -1,0 +1,1 @@
+enum SecureStorageKeys { MEMBERID, USERNAME, NAME, EMAIL, PLATFORM, FCMTOKEN }
