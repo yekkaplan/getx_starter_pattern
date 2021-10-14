@@ -1,32 +1,39 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:dio/adapter.dart';
+import 'package:dio/dio.dart';
 import 'package:getx_starter_pattern/app/home/model/user.dart';
 import 'package:getx_starter_pattern/app/home/service/base/home_service.base.dart';
-import 'package:http/http.dart' as http;
 
 class HomeService with HomeServiceBase {
-  final http.Client httpClient;
+  final Dio _dio;
 
-  HomeService(this.httpClient);
+  HomeService(this._dio);
 
   @override
   Future<List<User>> getAllUsers() async {
     List<User> userList = [];
 
-    // String url = "https://jsonplaceholder.typicode.com/users";
-    const _authority = "jsonplaceholder.typicode.com";
-    const _path = "/users";
-    final _uri = Uri.https(_authority, _path);
-    var responses = await http.get(_uri);
+    try {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+          (HttpClient client) {
+        client.badCertificateCallback =
+            (X509Certificate cert, String host, int port) => true;
+        return client;
+      };
+      var response =
+          await _dio.get('https://jsonplaceholder.typicode.com/users');
 
-    print(responses);
-
-    if (responses.statusCode == 200) {
-      var decodedJson = jsonDecode(responses.body);
-      userList = userFromJson(decodedJson);
-    } else {
+      if (response.statusCode == 200) {
+        print(response.data.toString());
+        userList = userFromJson(json.encode(response.data));
+        return userList;
+      } else {
+        return userList;
+      }
+    } on DioError catch (ex) {
       return userList;
     }
-    return userList;
   }
 }

@@ -24,8 +24,11 @@ class HomeController extends GetxController {
   set userName(value) => this._userName.value = value;
 
   getAll() async {
+    var fetchedUser = await repository.getAllUsers();
 
-    users = await repository.getAllUsers();
+    print(fetchedUser);
+
+    _users.assignAll(fetchedUser);
 
     this._userName.value = "asdasdasdss";
   }
