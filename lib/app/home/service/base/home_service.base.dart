@@ -1,4 +1,5 @@
-abstract class HomeServiceBase {
-  Future<String> getAllUsers(String userId);
+import 'package:getx_starter_pattern/app/home/model/user.dart';
 
+abstract class HomeServiceBase {
+  Future<List<User>> getAllUsers();
 }

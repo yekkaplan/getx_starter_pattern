@@ -7,23 +7,36 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-      child: GetX<HomeController>(
-        initState: (state) {
-          Get.find<HomeController>().getAll();
-        },
-        builder: (homeController) {
-          return Column(
+    return GetX<HomeController>(
+      initState: (state) {
+        Get.find<HomeController>().getAll();
+      },
+      builder: (_) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Getx Pattern!"),
+          ),
+          body: SafeArea(
+              child: Column(
             children: [
-              Center(
-                child: Text(homeController.userName),
+              Container(
+                child: _.users.isNotEmpty
+                    ? ListView.builder(
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text("Test"),
+                          );
+                        },
+                        itemCount: _.users.length,
+                      )
+                    : Container(
+                        child: Center(child: Text("Yükleniyor")),
+                      ),
               ),
-          
             ],
-          );
-        },
-      ),
-    ));
+          )),
+        );
+      },
+    );
   }
 }

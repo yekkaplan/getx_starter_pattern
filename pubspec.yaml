@@ -31,11 +31,12 @@ dependencies:
   shared_preferences: ^2.0.7
   flutter_secure_storage: ^4.2.1
   get: ^4.3.8
-  http: ^0.13.3
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  lint: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
