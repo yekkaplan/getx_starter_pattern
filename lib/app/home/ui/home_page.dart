@@ -17,23 +17,19 @@ class HomePage extends GetView<HomeController> {
             title: Text("Getx Pattern!"),
           ),
           body: SafeArea(
-              child: Column(
-            children: [
-              Container(
-                child: _.users.isNotEmpty
-                    ? ListView.builder(
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text("Test"),
-                          );
-                        },
-                        itemCount: _.users.length,
-                      )
-                    : Container(
-                        child: Center(child: Text("Yükleniyor")),
-                      ),
-              ),
-            ],
+              child: Container(
+            child: _.users.isNotEmpty
+                ? ListView.builder(
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(_.users[index].name),
+                      );
+                    },
+                    itemCount: _.users.length,
+                  )
+                : Container(
+                    child: Center(child: Text("Yükleniyor")),
+                  ),
           )),
         );
       },
